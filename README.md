@@ -49,7 +49,7 @@ import (
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	. "github.com/rancher/elemental/tests/e2e/helpers/qase"
+	. "github.com/rancher-sandbox/qase-ginkgo"
 )
 ```
 
