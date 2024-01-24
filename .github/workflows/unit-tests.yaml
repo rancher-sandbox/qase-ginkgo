@@ -36,7 +36,7 @@ jobs:
         run: |
           go install github.com/onsi/ginkgo/v2/ginkgo
           go install github.com/onsi/gomega/...
-          ginkgo --label-filter qase --covermode=atomic --coverprofile=coverage.out -v -p -r ./qase
+          ginkgo --covermode=atomic --coverprofile=coverage.out -v -r ./qase
       - name: Codecov
         uses: codecov/codecov-action@v3
         with:

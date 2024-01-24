@@ -28,7 +28,7 @@ func outputCurrentPwd() ([]byte, error) {
 	return (exec.Command("pwd").Output())
 }
 
-var _ = Describe("Qase Ginkgo Integration - Unit tests", Label("qase"), func() {
+var _ = Describe("Qase Ginkgo Integration - Unit tests", func() {
 	var qaseRunID int32
 
 	It("Create and export a Qase Run", func() {
