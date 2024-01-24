@@ -224,13 +224,13 @@ func DeleteRun() {
 
 /*
 This function finalises the results for a specific run.
-  - @return Fatal on error
+  - @return URl of the report of fatal on error
 */
-func FinalizeResults() {
+func FinalizeResults() string {
 	// Do something only if run id is valid
 	if runID <= 0 {
 		logrus.Debug("Nothing to finalize!")
-		return
+		return ""
 	}
 
 	cfg := qase.NewConfiguration()
@@ -258,8 +258,12 @@ func FinalizeResults() {
 
 			// Log in Ginkgo
 			ginkgo.GinkgoWriter.Printf("Report for run ID %d available: %s\n", runID, runPublicResponse.Result.Url)
+			return runPublicResponse.Result.Url
 		}
 	}
+
+	// Nothing to return if we get here
+	return ""
 }
 
 /*
