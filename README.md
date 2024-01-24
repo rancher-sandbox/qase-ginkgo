@@ -9,7 +9,7 @@ This `qase-ginkgo` integration library is a basic library that can be used to re
 
 ## Quick test
 
-You can simply copy/paste the `qase_example_test.go` file and adapt it to your needs.
+You can simply copy/paste the `examples/qase_test.go` file and adapt it to your needs.
 
 ## Step-by-step explanation
 

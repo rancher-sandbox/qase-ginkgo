@@ -26,10 +26,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-test-go-${{ hashFiles('**/go.sum') }}
       - name: Run tests
+        env:
+          QASE_API_TOKEN: ${{ secrets.QASE_API_TOKEN }}
+          QASE_PROJECT_CODE: QASEGINKGO
+          QASE_REPORT: 1
+          QASE_RUN_COMPLETE: 1
+          QASE_RUN_DESCRIPTION: "Unit tests used to valided the qase-ginkgo library"
+          QASE_RUN_NAME: "Qase-ginkgo Unit Tests"
         run: |
           go install github.com/onsi/ginkgo/v2/ginkgo
           go install github.com/onsi/gomega/...
-          ginkgo -r -v  --covermode=atomic --coverprofile=coverage.out -p -r ./...
+          ginkgo --label-filter qase --covermode=atomic --coverprofile=coverage.out -v -p -r ./...
       - name: Codecov
         uses: codecov/codecov-action@v3
         with:

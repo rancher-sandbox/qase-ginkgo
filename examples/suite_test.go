@@ -35,6 +35,11 @@ func TestQASE(t *testing.T) {
 // To be able to log test results in Qase
 var testCaseID int64
 
+var _ = ReportAfterSuite("Qase Report", func(report Report) {
+	// Finalize Qase report
+	FinalizeResults()
+})
+
 var _ = ReportBeforeEach(func(report SpecReport) {
 	// Reset case ID
 	testCaseID = -1
