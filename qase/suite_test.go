@@ -36,11 +36,17 @@ func TestQASE(t *testing.T) {
 var testCaseID int64
 
 var _ = ReportBeforeEach(func(report SpecReport) {
+	// Log execution
+	GinkgoWriter.Println("ReportBeforeEach executed")
+
 	// Reset case ID
 	testCaseID = -1
 })
 
 var _ = ReportAfterEach(func(report SpecReport) {
+	// Log execution
+	GinkgoWriter.Println("ReportAfterEach executed")
+
 	// Add result in Qase if asked
 	Qase(testCaseID, report)
 })

@@ -33,6 +33,7 @@ var _ = Describe("Qase Ginkgo Integration - Unit tests", func() {
 
 	It("Create and export a Qase Run", func() {
 		qaseRunID = CreateRun()
+		GinkgoWriter.Printf("Run ID %d created\n", qaseRunID)
 		Expect(qaseRunID).To(BeNumerically(">", 0))
 	})
 
@@ -51,6 +52,7 @@ var _ = Describe("Qase Ginkgo Integration - Unit tests", func() {
 	It("Finalize the run and publish the Qase report", func() {
 		By("finalizing and reporting", func() {
 			url := FinalizeResults()
+			GinkgoWriter.Printf("Results URL: %s\n", url)
 			Expect(url).To(Not(BeEmpty()))
 		})
 	})
