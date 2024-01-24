@@ -143,7 +143,8 @@ func CreateRun() int32 {
 		}
 
 		// Export runID for all functions to use it
-		os.Setenv("QASE_RUN_ID", fmt.Sprint(runID))
+		os.Setenv("QASE_RUN_ID", fmt.Sprint(createdID))
+		runID = createdID
 	}
 
 	return createdID
@@ -298,6 +299,7 @@ This function creates/updates run/cases for specific Ginkgo tests.
 func Qase(id int64, testReport ginkgo.SpecReport) {
 	// A negative or zero run/case ID means that we won't log anything
 	if runID <= 0 || id <= 0 {
+		logrus.Debugf("No run id defined (runID=%d) or wrong case id! Case %d cannot be added", runID, id)
 		return
 	}
 
