@@ -43,7 +43,7 @@ func testQaseFunc() ([]byte, error) {
 	return (exec.Command("pwd").Output())
 }
 
-var _ = Describe("Qase Ginkgo Integration - Basic tests", Label("qase"), func() {
+var _ = Describe("Qase Ginkgo Integration - Basic tests", Label("qase-example"), func() {
 	// Nothing should be logged in Qase for this test
 	It("Test a sleep function", func() {
 		fmt.Println("Sleep for 2s...")
