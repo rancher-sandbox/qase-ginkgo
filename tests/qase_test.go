@@ -20,7 +20,7 @@ import (
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	. "github.com/rancher-sandbox/qase-ginkgo/qase"
+	. "github.com/rancher-sandbox/qase-ginkgo"
 )
 
 // Just a dumb function for testing purposes

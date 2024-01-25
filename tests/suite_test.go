@@ -19,7 +19,7 @@ import (
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	. "github.com/rancher-sandbox/qase-ginkgo/qase"
+	. "github.com/rancher-sandbox/qase-ginkgo"
 )
 
 func FailWithReport(message string, callerSkip ...int) {
