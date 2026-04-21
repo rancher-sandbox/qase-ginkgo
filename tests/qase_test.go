@@ -18,7 +18,6 @@ limitations under the License.
 package qase_test
 
 import (
-	"fmt"
 	"os/exec"
 
 	. "github.com/onsi/ginkgo/v2"
@@ -57,13 +56,6 @@ var _ = Describe("Qase Ginkgo Integration - Unit tests", func() {
 			url := FinalizeResults()
 			GinkgoWriter.Printf("Results URL: %s\n", url)
 			Expect(url).To(Not(BeEmpty()))
-		})
-	})
-
-	It("Delete the previously generated Qase run", func() {
-		By("Deleting run id "+fmt.Sprint(qaseRunID), func() {
-			// No real check here, as the function is supposed to trigger a Fatal call in case of issue
-			DeleteRun()
 		})
 	})
 })
