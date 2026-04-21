@@ -1,10 +1,13 @@
 /*
-Copyright © 2023 - 2024 SUSE LLC
+Copyright © 2023 - 2026 SUSE LLC
+SPDX-License-Identifier: Apache-2.0
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
+
     http://www.apache.org/licenses/LICENSE-2.0
+
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -64,7 +67,7 @@ var (
 	report         = os.Getenv("QASE_REPORT")
 	runComplete    = os.Getenv("QASE_RUN_COMPLETE")
 	runDescription = os.Getenv("QASE_RUN_DESCRIPTION")
-	runID          int32
+	runID          int64
 	runName        = os.Getenv("QASE_RUN_NAME")
 	runStrID       = os.Getenv("QASE_RUN_ID")
 )
@@ -122,8 +125,8 @@ func createRun(client *qase.APIClient, name, description string, ids []int64) *q
 This function creates a run in a specific project. This is the exported version of the function.
   - @return ID of the created run
 */
-func CreateRun() int32 {
-	var createdID int32
+func CreateRun() int64 {
+	var createdID int64
 
 	cfg := qase.NewConfiguration()
 	cfg.AddDefaultHeader("Token", apiToken)
@@ -134,7 +137,7 @@ func CreateRun() int32 {
 
 		// Create test run
 		idReponse := createRun(client, runName, runDescription, []int64{})
-		createdID = int32(idReponse.Result.Id)
+		createdID = idReponse.Result.Id
 		logrus.Debugf("Run named '%s' with description '%s' created with id %d", runName, runDescription, createdID)
 
 		// Check that we can access the run
@@ -156,8 +159,9 @@ This function checks the availability of a specific run.
   - @param id ID of the run to check
   - @return Fatal on error
 */
-func checkRun(client *qase.APIClient, id int32) bool {
-	runResponse, _, err := client.RunsApi.GetRun(context.TODO(), projectCode, id)
+func checkRun(client *qase.APIClient, id int64) bool {
+	//nolint:gosec // disable G115
+	runResponse, _, err := client.RunsApi.GetRun(context.TODO(), projectCode, int32(id))
 	if err != nil {
 		logrus.Debugf("Error on checking run: %v", err)
 		// Return false in case if error
@@ -174,8 +178,9 @@ This function sets a specific run as complete.
   - @param id ID of the run to check
   - @return Fatal on error
 */
-func completeRun(client *qase.APIClient, id int32) {
-	completeResponse, _, err := client.RunsApi.CompleteRun(context.TODO(), projectCode, id)
+func completeRun(client *qase.APIClient, id int64) {
+	//nolint:gosec // disable G115
+	completeResponse, _, err := client.RunsApi.CompleteRun(context.TODO(), projectCode, int32(id))
 	if err != nil || !completeResponse.Status {
 		logrus.Fatalf("Error on completing run: %v", err)
 	}
@@ -187,8 +192,9 @@ This function completely deletes a specific run.
   - @param id ID of the run to check
   - @return Fatal on error
 */
-func deleteRun(client *qase.APIClient, id int32) {
-	idResponse, _, err := client.RunsApi.DeleteRun(context.TODO(), projectCode, id)
+func deleteRun(client *qase.APIClient, id int64) {
+	//nolint:gosec // disable G115
+	idResponse, _, err := client.RunsApi.DeleteRun(context.TODO(), projectCode, int32(id))
 	if err != nil || !idResponse.Status {
 		logrus.Fatalf("Error on deleting run with id %d: %v", id, err)
 	}
@@ -251,7 +257,8 @@ func FinalizeResults() string {
 
 		// Make the run publicly available
 		if report != "" {
-			runPublicResponse, _, err := client.RunsApi.UpdateRunPublicity(context.TODO(), qase.RunPublic{Status: true}, projectCode, runID)
+			//nolint:gosec // disable G115
+			runPublicResponse, _, err := client.RunsApi.UpdateRunPublicity(context.TODO(), qase.RunPublic{Status: true}, projectCode, int32(runID))
 			if err != nil {
 				logrus.Fatalf("Error on publishing run: %v", err)
 			}
@@ -316,6 +323,7 @@ func Qase(id int64, testReport ginkgo.SpecReport) {
 		logrus.Debugf("Using run with id %d", runID)
 
 		// Check that the case exists
+		//nolint:gosec // disable G115
 		testCaseResponse, _, err := client.CasesApi.GetCase(context.TODO(), projectCode, int32(id))
 		if err != nil {
 			logrus.Fatalf("Error on getting case: %v", err)
@@ -411,6 +419,6 @@ func init() {
 		if err != nil {
 			logrus.Fatalf("Error on converting string to int64: %v", err)
 		}
-		runID = int32(i)
+		runID = i
 	}
 }
