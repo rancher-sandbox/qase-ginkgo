@@ -40,10 +40,10 @@ var _ = Describe("Qase Ginkgo Integration - Unit tests", func() {
 		Expect(qaseRunID).To(BeNumerically(">", 0))
 	})
 
-	// The whole test with ID=1 should be marked as failed
-	It("Test the Qase function with ID=1", func() {
+	// The whole test with ID=676 should be marked as failed
+	It("Test the Qase function with ID=6776(DEMO-676)", func() {
 		// Report to Qase
-		testCaseID = 1
+		testCaseID = 676
 
 		// TODO: could be a good idea to add a function to check a case status
 		By("testing that output is not empty (will pass)", func() {

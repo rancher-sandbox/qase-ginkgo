@@ -36,7 +36,7 @@ jobs:
         env:
           QASE_API_TOKEN: ${{ secrets.QASE_API_TOKEN }}
           QASE_LOG_LEVEL: debug
-          QASE_PROJECT_CODE: QASEGINKGO
+          QASE_PROJECT_CODE: DEMO
           QASE_REPORT: 1
           QASE_RUN_COMPLETE: 1
           QASE_RUN_DESCRIPTION: "Unit tests used to valided the qase-ginkgo library"
